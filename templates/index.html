@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "utf-8">
+
+    <title>NBA Data Web App</title>
+</head>
+
+<body>
+    <script src = "http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin = "anonymous"></script>
+    <button id = "searchBtn"> Search </button>
+
+    <div id = "response"></div>
+
+    <script type = "text/javascript">
+        $('button#searchBtn').click(function() {
+            var data_list;
+            $.post('/_get_data', {
+            }).done(function(response) {
+                data_list = response['data'];
+                console.log(data_list);
+                //If your list is received correctly, you will have to write a javascript loop to retrieve one by one the data and display them on your page
+            }).fail(function() {
+                alert("request failed");
+            });
+        });
+    </script>
+
+    <ul>
+        {% for elem in dataList %}
+
+            <li>{{elem}}</li>
+
+        {% endfor %}
+    </ul>
+</body>
+</html>
