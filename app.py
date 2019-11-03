@@ -1,6 +1,6 @@
 
 #Import our external web scraping file
-from scrape import *
+from scrape import data_headers, scrape_data
 
 #Flask dependencies
 from flask import Flask, render_template, jsonify, request, escape, url_for
@@ -21,11 +21,12 @@ def index():
 def _get_data():
     #Get the name we want to search for
     searchName = request.args.get('searchName')
+    
     #Call the function and pass our search name parameter
     dataList = scrape_data(searchName)
 
     #Return the json format of the data we scraped
-    return jsonify(dataList = dataList)
+    return jsonify(dataList = dataList, headers = headers)
 
 #Run the app
 if __name__ == "__main__":

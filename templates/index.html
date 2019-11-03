@@ -4,19 +4,44 @@
     <meta charset = "utf-8">
 
     <title>NBA Data Web App</title>
+
+    <!-- Style for our table of data that we will display -->
+    <style>
+    body {
+        background-color: navy;
+    }
+    table {
+        background-color: azure;
+        border-collapse: collapse;
+    }
+    table tr td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+    table td + td {
+        border-left: 2px solid lightseagreen;
+    }
+    </style>
 </head>
 
 <body>
+    <!-- First, we will try to load jQuery this way -->
     <script src = "http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin = "anonymous"></script>
+    <!-- If that fails, we have a backup in our directory-->
     <script type = text/javascript src = "{{
         url_for('static', filename = 'jquery.js') }}"></script>
     <form id = "nameForm" role = "form">
+        <!-- Input box so we can search by player name -->
         <input name = "text">
+        <!-- Button that we will use to make the actual ajax call -->
         <button id = "searchBtn"> Search </button>
     </form>
 
+    <!-- Container that we will add our data table to later -->
     <div id = "container"></div>
 
+
+    <!-- Script for the button click action -->
     <script type = text/javascript> 
     //Root stuff
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
@@ -31,32 +56,34 @@
                 searchName: $('input[name = "text"]').val(),
             }, function(data) {
                 //Rename the variable so I can reuse some code 
-                data_list = data.dataList;
+                var data_list = data.dataList;
+                //Headers for our tables second row
+                var titles = data.headers;
 
                 //HTML table variables
-                var perRow = 1, count = 0, table = document.createElement("table"),
-                row = table.insertRow();
+                var perRow = 2, html = "<table><tr>";
 
-                //Loop through the data and get each piece
-                for (var i of data_list) {
-                    //Create a cell for each piece of data
-                    var cell = row.insertCell();
-                    //Then actually add the data to the cell
-                    cell.innerHTML = i;
+                //Loop through our array of data
+                for (var i = 0; i < data_list.length; i++) {
+                    //Add our header first, as we want that to appear first
+                    html += "<td>" + titles[i]+ "</td>";
+                    //Then add the correct data piece for the header
+                    html += "<td>" + data_list[i]+ "</td>";
 
-                    //Increment our count variable so we can decide when to start a new row
-                    count++;
-                    if (count % perRow == 0) {
-                        //If we have reached our set limit of items per row, start a new row
-                        row = table.insertRow();
+                    //Break into the next row
+                    var next = i+1;
+                    if (next % perRow == 0 && next != data_list.length) {
+                        //Start new row
+                        html += "</tr><tr>";
                     }
                 }
+                //End the table
+                html += "</tr><table>";
                 //Attach the table to the HTML doc when finished
-                document.getElementById("container").appendChild(table);
+                document.getElementById("container").innerHTML = html;
             });
         }); 
-         
     </script>
-
 </body>
 </html>
+

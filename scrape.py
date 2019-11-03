@@ -5,13 +5,13 @@ import pandas as pd
 import json
 import requests
 
+#Pass the name of the player we want to search as a parameter
 def scrape_data(name):
     #URL of the page we want to scrape (2019-2020 per game player stats)
     url = "https://www.basketball-reference.com/leagues/NBA_2020_per_game.html"
 
     #HTML from our URL
     html = urlopen(url)
-
     #Convert that HTML into an object
     soup = bs(html, 'html.parser')
 
@@ -33,8 +33,14 @@ def scrape_data(name):
     stats.head(10)
 
     #Convert it to a list so it is easier to use with HTML/Ajax/JS/etc
+    doubleList = (stats[stats['Player'] == name]).values.tolist()
 
-    dataList = (stats[stats['Player'] == name]).values.tolist()
+    #Our method above returns a list, within a list. This next method converts
+    # it to a 'flat list'
+    dataList = []
+    for sublist in doubleList:
+        for item in sublist:    
+            dataList.append(item)
     return dataList
 
 def data_headers():
@@ -55,4 +61,3 @@ def data_headers():
     #Exclude the first column, as we don't care about the ranking order from Basketball Reference
     headers = headers[1:]
     return headers
-
