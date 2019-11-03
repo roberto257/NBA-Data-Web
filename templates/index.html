@@ -8,30 +8,55 @@
 
 <body>
     <script src = "http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin = "anonymous"></script>
-    <button id = "searchBtn"> Search </button>
+    <script type = text/javascript src = "{{
+        url_for('static', filename = 'jquery.js') }}"></script>
+    <form id = "nameForm" role = "form">
+        <input name = "text">
+        <button id = "searchBtn"> Search </button>
+    </form>
 
-    <div id = "response"></div>
+    <div id = "container"></div>
 
-    <script type = "text/javascript">
-        $('button#searchBtn').click(function() {
-            var data_list;
-            $.post('/_get_data', {
-            }).done(function(response) {
-                data_list = response['data'];
-                console.log(data_list);
-                //If your list is received correctly, you will have to write a javascript loop to retrieve one by one the data and display them on your page
-            }).fail(function() {
-                alert("request failed");
+    <script type = text/javascript> 
+    //Root stuff
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+        //Root so we can get the data from our form
+        $('button#searchBtn').click(function(e) {
+            //Prevent our form from submitting, which is its default action/purpose
+            e.preventDefault();
+            //Get the data from our function in the Flask App
+            $.getJSON($SCRIPT_ROOT + '/_get_data', {
+                //Our searchName variable will be the one from our HTML input box
+                searchName: $('input[name = "text"]').val(),
+            }, function(data) {
+                //Rename the variable so I can reuse some code 
+                data_list = data.dataList;
+
+                //HTML table variables
+                var perRow = 1, count = 0, table = document.createElement("table"),
+                row = table.insertRow();
+
+                //Loop through the data and get each piece
+                for (var i of data_list) {
+                    //Create a cell for each piece of data
+                    var cell = row.insertCell();
+                    //Then actually add the data to the cell
+                    cell.innerHTML = i;
+
+                    //Increment our count variable so we can decide when to start a new row
+                    count++;
+                    if (count % perRow == 0) {
+                        //If we have reached our set limit of items per row, start a new row
+                        row = table.insertRow();
+                    }
+                }
+                //Attach the table to the HTML doc when finished
+                document.getElementById("container").appendChild(table);
             });
-        });
+        }); 
+         
     </script>
 
-    <ul>
-        {% for elem in dataList %}
-
-            <li>{{elem}}</li>
-
-        {% endfor %}
-    </ul>
 </body>
 </html>

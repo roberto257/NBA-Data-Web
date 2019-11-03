@@ -5,7 +5,7 @@ import pandas as pd
 import json
 import requests
 
-def scrape_data():
+def scrape_data(name):
     #URL of the page we want to scrape (2019-2020 per game player stats)
     url = "https://www.basketball-reference.com/leagues/NBA_2020_per_game.html"
 
@@ -33,9 +33,8 @@ def scrape_data():
     stats.head(10)
 
     #Convert it to a list so it is easier to use with HTML/Ajax/JS/etc
-    dataList2 = (stats[stats['Player'] == 'James Harden']).values.tolist()
 
-    dataList = dataList2
+    dataList = (stats[stats['Player'] == name]).values.tolist()
     return dataList
 
 def data_headers():
@@ -56,8 +55,4 @@ def data_headers():
     #Exclude the first column, as we don't care about the ranking order from Basketball Reference
     headers = headers[1:]
     return headers
-
-
-
-    
 
