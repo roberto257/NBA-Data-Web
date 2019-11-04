@@ -25,17 +25,11 @@
 </head>
 
 <body>
-    <!-- Load jQuery and React -->
+    <!-- Load jQuery -->
     <script src = "http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin = "anonymous"></script>
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <!-- If that fails, we have a backup in our directory-->
     <script type = text/javascript src = "{{
         url_for('static', filename = 'jquery.js') }}"></script>
-    <script type = text/javascript src = "{{
-        url_for('static', filename = 'react.min.js') }}"></script>
-    <script type = text/javascript src = "{{
-        url_for('static', filename = 'react-dom.min.js') }}"></script>
 
     <!-- Form for submitting our NBA Data-->
     <form id = "nameForm" role = "form">
@@ -44,21 +38,6 @@
         <!-- Button that we will use to make the actual ajax call -->
         <button id = "searchBtn"> Search </button>
     </form>
-
-    <div id = 'content'></div>
-
-    <script type = "text/jsx">
-        var realPython = React.createClass({
-            render: function() {
-                return (<h2> Greetings, from me </h2>);
-            }
-        });
-
-        ReactDOM.render(
-            React.createElement(realPython, null),
-            document.getElementById('content')
-        );
-    </script>
 
     <!-- Container that we will add our data table to later -->
     <div id = "container"></div>

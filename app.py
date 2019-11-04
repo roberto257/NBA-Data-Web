@@ -9,7 +9,7 @@ from flask import Flask, render_template, jsonify, request, escape, url_for
 headers = data_headers()
 
 #Start the flask app, and reference out React frontend
-app = Flask(__name__, static_folder = './react-frontend/build/static', template_folder = './react-frontend/build')
+app = Flask(__name__)
 
 #Start page
 @app.route('/')
