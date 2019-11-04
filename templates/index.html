@@ -5,23 +5,9 @@
 
     <title>NBA Data Web App</title>
 
-    <!-- Style for our table of data that we will display -->
-    <style>
-    body {
-        background-color: navy;
-    }
-    table {
-        background-color: azure;
-        border-collapse: collapse;
-    }
-    table tr td {
-        border: 1px solid black;
-        padding: 10px;
-    }
-    table td + td {
-        border-left: 2px solid lightseagreen;
-    }
-    </style>
+    <!-- Link our stylesheet -->
+    <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename = 'index.css') }}">
+
 </head>
 
 <body>
@@ -34,7 +20,7 @@
     <!-- Form for submitting our NBA Data-->
     <form id = "nameForm" role = "form">
         <!-- Input box so we can search by player name -->
-        <input name = "text">
+        <input name = "text" type = "text" id = "searchBox">
         <!-- Button that we will use to make the actual ajax call -->
         <button id = "searchBtn"> Search </button>
     </form>
@@ -44,7 +30,6 @@
 
     <!-- Script for the button click action -->
     <script type = text/javascript> 
-    
         //Root stuff
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
         //Root so we can get the data from our form
