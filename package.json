@@ -1,0 +1,20 @@
+{
+  "name": "NBA-Data-Web",
+  "version": "1.0.0",
+  "description": "A website that will display current NBA statistics",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roberto257/NBA-Data-Web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roberto257/NBA-Data-Web/issues"
+  },
+  "homepage": "https://github.com/roberto257/NBA-Data-Web#readme"
+}

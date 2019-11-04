@@ -25,11 +25,19 @@
 </head>
 
 <body>
-    <!-- First, we will try to load jQuery this way -->
+    <!-- Load jQuery and React -->
     <script src = "http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin = "anonymous"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <!-- If that fails, we have a backup in our directory-->
     <script type = text/javascript src = "{{
         url_for('static', filename = 'jquery.js') }}"></script>
+    <script type = text/javascript src = "{{
+        url_for('static', filename = 'react.min.js') }}"></script>
+    <script type = text/javascript src = "{{
+        url_for('static', filename = 'react-dom.min.js') }}"></script>
+
+    <!-- Form for submitting our NBA Data-->
     <form id = "nameForm" role = "form">
         <!-- Input box so we can search by player name -->
         <input name = "text">
@@ -37,15 +45,29 @@
         <button id = "searchBtn"> Search </button>
     </form>
 
+    <div id = 'content'></div>
+
+    <script type = "text/jsx">
+        var realPython = React.createClass({
+            render: function() {
+                return (<h2> Greetings, from me </h2>);
+            }
+        });
+
+        ReactDOM.render(
+            React.createElement(realPython, null),
+            document.getElementById('content')
+        );
+    </script>
+
     <!-- Container that we will add our data table to later -->
     <div id = "container"></div>
 
-
     <!-- Script for the button click action -->
     <script type = text/javascript> 
-    //Root stuff
+    
+        //Root stuff
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-
         //Root so we can get the data from our form
         $('button#searchBtn').click(function(e) {
             //Prevent our form from submitting, which is its default action/purpose
@@ -59,17 +81,14 @@
                 var data_list = data.dataList;
                 //Headers for our tables second row
                 var titles = data.headers;
-
                 //HTML table variables
                 var perRow = 2, html = "<table><tr>";
-
                 //Loop through our array of data
                 for (var i = 0; i < data_list.length; i++) {
                     //Add our header first, as we want that to appear first
                     html += "<td>" + titles[i]+ "</td>";
                     //Then add the correct data piece for the header
                     html += "<td>" + data_list[i]+ "</td>";
-
                     //Break into the next row
                     var next = i+1;
                     if (next % perRow == 0 && next != data_list.length) {
@@ -84,6 +103,8 @@
             });
         }); 
     </script>
+
+
 </body>
 </html>
 

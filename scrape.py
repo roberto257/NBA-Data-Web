@@ -61,3 +61,4 @@ def data_headers():
     #Exclude the first column, as we don't care about the ranking order from Basketball Reference
     headers = headers[1:]
     return headers
+
