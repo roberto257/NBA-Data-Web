@@ -13,9 +13,13 @@
 <body>
     <!-- Load jQuery -->
     <script src = "http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin = "anonymous"></script>
+    <!-- jQuery dataTables script-->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <!-- If that fails, we have a backup in our directory-->
     <script type = text/javascript src = "{{
         url_for('static', filename = 'jquery.js') }}"></script>
+    <script type = text/javascript src = "{{
+        url_for('static', filename = 'jQuery.dataTables.min.js') }}"></script>
 
     <!-- Form for submitting our NBA Data-->
     <form id = "nameForm" role = "form">
@@ -46,7 +50,7 @@
                 //Headers for our tables second row
                 var titles = data.headers;
                 //HTML table variables
-                var perRow = 2, html = "<table><tr>";
+                var perRow = 2, html = "<table id = " <tr>";
                 //Loop through our array of data
                 for (var i = 0; i < data_list.length; i++) {
                     //Add our header first, as we want that to appear first
@@ -64,8 +68,14 @@
                 html += "</tr><table>";
                 //Attach the table to the HTML doc when finished
                 document.getElementById("container").innerHTML = html;
+                var contents = document.getElementById("container").innerHTML;
+                document.write(contents);
             });
         }); 
+        //When our page is fully loaded, convert the table to a jQuery data table
+        $(document).ready(function () {
+            $('#container').DataTable();
+        });
     </script>
 
 

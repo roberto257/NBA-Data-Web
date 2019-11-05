@@ -1,32 +1,39 @@
 body {
-    background-color: #09c;
+    background-color: #87bdd8;
 }
 
 table {
     font-family: sans-serif;
-    background-color: azure;
+    background-color: #daebe8;
     border-collapse: collapse;
 }
 table tr td {
-    border: 1px solid black;
+    border: 3px solid black;
     padding: 10px;
 }
 table td + td {
-    border-left: 2px solid lightseagreen;
+    border-left: 3px solid black;
 }
 td:nth-child(odd) {
     font-weight: bold;
-    background-color: aqua;
+    background-color: #b7d7e8;
 }
 
-#nameForm {
-    width: 600px;
-}
-
-#searchBox {
-    border: 4px solid black;
-    border-radius: 5px;
+input[type=text] {
+    width: 15%;
     padding: 12px 20px;
     margin: 8px 0;
-    width: 100%;
+    box-sizing: border-box;
+    font-size: 30px;
+    font-family: sans-serif;
+}
+
+#searchBtn {
+    background-color: #cfe0e8;
+    color: black;
+    width: 7%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    font-size: 30px;
+    font-family: sans-serif;
 }
