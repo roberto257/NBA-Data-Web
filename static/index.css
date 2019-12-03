@@ -31,9 +31,17 @@ input[type=text] {
 #searchBtn {
     background-color: #cfe0e8;
     color: black;
-    width: 7%;
+    width: 25%;
     padding: 12px 20px;
     margin: 8px 0;
     font-size: 30px;
     font-family: sans-serif;
+}
+
+#searchBox {
+    width: 60%;
+}
+
+#nameForm {
+    width: 100%;
 }
